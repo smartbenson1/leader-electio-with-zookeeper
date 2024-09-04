@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: flask-api-leader-election
+spec:
+  serviceName: "flask-api-leader-election"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-api-leader-election
+  template:
+    metadata:
+      labels:
+        app: flask-api-leader-election
+    spec:
+      containers:
+      - name: flask-api
+        image: 409489027555.dkr.ecr.ap-east-1.amazonaws.com/leader-election-demo:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-api-leader-election
+spec:
+  selector:
+    app: flask-api-leader-election
+  ports:
+  - port: 80
+    targetPort: 5000
+  type: LoadBalancer
