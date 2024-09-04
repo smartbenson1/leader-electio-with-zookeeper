@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-api
-        image: 409489027555.dkr.ecr.ap-east-1.amazonaws.com/leader-election-demo:latest
+        image: [Your_docker_image_URL]
         ports:
         - containerPort: 5000
 ---
